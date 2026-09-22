@@ -8,6 +8,7 @@ public class GewinnController {
         this.view = view;
 
         view.getSpielerFeld().addActionListener(e -> rundeSpielen());
+        view.getNochmalButton().addActionListener(e -> nochmalSpielen());
     }
 
     private void rundeSpielen() {
@@ -42,6 +43,13 @@ public class GewinnController {
         view.getGesamtPunkteLabel().setText(
                 String.valueOf(model.getGesamtPunkte())
         );
+    }
+    private void nochmalSpielen() {
+        view.getSpielerFeld().setText("");
+        view.getComputerFeld().setText("");
+        view.getRundenErgebnisLabel().setText("Tippe eine Zahl von 1 bis 9");
+
+        view.getSpielerFeld().requestFocus();
     }
 
     public boolean spieleRunde(String eingabe) {
