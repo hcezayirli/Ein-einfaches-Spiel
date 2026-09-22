@@ -24,4 +24,8 @@ public class GewinnModel {
     public int getRundenErgebnis() {
         return rundenErgebnis;
     }
+
+    public void berechneComputerZahl() {
+        computerZahl = (int) (Math.random() * 9) + 1;
+    }
 }
