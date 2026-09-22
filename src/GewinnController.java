@@ -1,12 +1,51 @@
 public class GewinnController {
 
     private GewinnModel model;
+    private GewinnView view;
 
-    public GewinnController(GewinnModel model) {
+    public GewinnController(GewinnModel model, GewinnView view) {
         this.model = model;
+        this.view = view;
+
+        view.getSpielerFeld().addActionListener(e -> rundeSpielen());
+    }
+
+    private void rundeSpielen() {
+
+        String eingabe = view.getSpielerFeld().getText();
+
+        if (!spieleRunde(eingabe)) {
+            view.getRundenErgebnisLabel().setText("Ungültige Eingabe");
+            return;
+        }
+
+        view.getComputerFeld().setText(
+                String.valueOf(model.getComputerZahl())
+        );
+
+        if (model.hatGewonnen()) {
+            view.getRundenErgebnisLabel().setText("Gewonnen");
+        } else if (model.hatVerloren()) {
+            view.getRundenErgebnisLabel().setText("Verloren");
+        } else {
+            int ergebnis = model.getRundenErgebnis();
+
+            if (ergebnis > 0) {
+                view.getRundenErgebnisLabel().setText("+" + ergebnis);
+            } else {
+                view.getRundenErgebnisLabel().setText(
+                        String.valueOf(ergebnis)
+                );
+            }
+        }
+
+        view.getGesamtPunkteLabel().setText(
+                String.valueOf(model.getGesamtPunkte())
+        );
     }
 
     public boolean spieleRunde(String eingabe) {
+
         if (eingabe == null) {
             return false;
         }
@@ -24,25 +63,5 @@ public class GewinnController {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    public int getGesamtPunkte() {
-        return model.getGesamtPunkte();
-    }
-
-    public int getComputerZahl() {
-        return model.getComputerZahl();
-    }
-
-    public int getRundenErgebnis() {
-        return model.getRundenErgebnis();
-    }
-
-    public boolean hatGewonnen() {
-        return model.hatGewonnen();
-    }
-
-    public boolean hatVerloren() {
-        return model.hatVerloren();
     }
 }
