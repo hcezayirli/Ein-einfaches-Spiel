@@ -43,11 +43,16 @@ public class GewinnController {
         view.getGesamtPunkteLabel().setText(
                 String.valueOf(model.getGesamtPunkte())
         );
+        view.getSpielerFeld().setEditable(false);
+        view.getNochmalButton().setEnabled(true);
     }
     private void nochmalSpielen() {
         view.getSpielerFeld().setText("");
         view.getComputerFeld().setText("");
         view.getRundenErgebnisLabel().setText("Tippe eine Zahl von 1 bis 9");
+
+        view.getSpielerFeld().setEditable(true);
+        view.getNochmalButton().setEnabled(false);
 
         view.getSpielerFeld().requestFocus();
     }

@@ -67,6 +67,7 @@ public class GewinnView extends JFrame {
         JPanel unten = new JPanel();
 
         nochmalButton = new JButton("Noch einmal!");
+        nochmalButton.setEnabled(false);
 
         unten.add(nochmalButton);
 
