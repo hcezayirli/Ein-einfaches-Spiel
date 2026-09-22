@@ -50,7 +50,12 @@ public class GewinnController {
                 String.valueOf(model.getGesamtPunkte())
         );
         view.getSpielerFeld().setEditable(false);
-        view.getNochmalButton().setEnabled(true);
+
+        if (model.hatGewonnen() || model.hatVerloren()) {
+            view.getNochmalButton().setEnabled(false);
+        } else {
+            view.getNochmalButton().setEnabled(true);
+        }
         if (model.getRundenErgebnis() > 0 || model.hatGewonnen()) {
             setzeLabelFarbe(Color.GREEN);
         } else if (model.getRundenErgebnis() < 0 || model.hatVerloren()) {
