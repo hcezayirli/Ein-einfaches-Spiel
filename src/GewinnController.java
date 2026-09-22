@@ -1,3 +1,4 @@
+import java.awt.Color;
 public class GewinnController {
 
     private GewinnModel model;
@@ -12,11 +13,16 @@ public class GewinnController {
     }
 
     private void rundeSpielen() {
+        if (model.hatGewonnen() || model.hatVerloren()) {
+            return;
+        }
+
 
         String eingabe = view.getSpielerFeld().getText();
 
         if (!spieleRunde(eingabe)) {
             view.getRundenErgebnisLabel().setText("Ungültige Eingabe");
+            setzeLabelFarbe(Color.WHITE);
             return;
         }
 
@@ -43,12 +49,20 @@ public class GewinnController {
         view.getGesamtPunkteLabel().setText(
                 String.valueOf(model.getGesamtPunkte())
         );
+        if (model.getRundenErgebnis() > 0 || model.hatGewonnen()) {
+            setzeLabelFarbe(Color.GREEN);
+        } else if (model.getRundenErgebnis() < 0 || model.hatVerloren()) {
+            setzeLabelFarbe(Color.RED);
+        } else {
+            setzeLabelFarbe(Color.WHITE);
+        }
     }
     private void nochmalSpielen() {
         view.getSpielerFeld().setText("");
         view.getComputerFeld().setText("");
         view.getRundenErgebnisLabel().setText("Tippe eine Zahl von 1 bis 9");
 
+        setzeLabelFarbe(Color.WHITE);
         view.getSpielerFeld().requestFocus();
     }
 
@@ -71,5 +85,10 @@ public class GewinnController {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private void setzeLabelFarbe(Color farbe) {
+        view.getRundenErgebnisLabel().setBackground(farbe);
+        view.getGesamtPunkteLabel().setBackground(farbe);
     }
 }
